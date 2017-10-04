@@ -15,4 +15,4 @@ CodeClimate, Snyk and other serverless-friendly services.
 
 ## Getting Started
 
-[Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step1)
+[Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step1#step-1-identify-your-serverless-application)
