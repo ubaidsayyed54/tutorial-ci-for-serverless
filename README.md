@@ -127,8 +127,9 @@ task-update:
   root: src/deep-todomvc/backend/src/task/update
 ```
 
-In order to let Travis CI know that we have some tests to execute, we go back
-to `.travis.yml` and change the script that will be executing from `echo "Hello World!"`:
+In order to let Travis CI know that we have some tests to execute, we go
+back to `.travis.yml` and change the script that will be executing from
+`script: echo "Hello World!"` to this:
 
 ```yaml
 before_install:
