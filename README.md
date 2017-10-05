@@ -28,9 +28,18 @@ as well as any other applications from
 [Curated List of Awesome Serverless](https://github.com/anaibol/awesome-serverless).
 
 ```ssh
-mkdir ./tutorial-ci-for-serverless
+# Download locally todomvc serverless application codebase
 git clone git@github.com:MitocGroup/deep-microservices-todomvc.git
-cp -R ./deep-microservices-todomvc/src ./deep-microservices-todomvc/bin ./tutorial-ci-for-serverless/
+
+# Download locally tutorial repository codebase
+git clone git@github.com:MitocGroup/tutorial-ci-for-serverless.git
+
+# Copy serverless application into a new branch, part of tutorial repository
+cd ./tutorial-ci-for-serverless
+git checkout -b tutorial-step1
+cp -R ../deep-microservices-todomvc/src ../deep-microservices-todomvc/bin .
+git commit -a -m "tutorial step 1"
+git push origin tutorial-step1
 ```
 
 [Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step2#step-2-setup-travis-ci)
