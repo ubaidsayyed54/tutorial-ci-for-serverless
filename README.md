@@ -71,9 +71,6 @@ cache:
     - node_modules
     - "$(npm root -g)"
     - "$(npm config get prefix)/bin"
-branches:
-  only:
-    - master
 node_js:
   - 6
   - 8
