@@ -77,4 +77,7 @@ node_js:
 script: echo "Hello World!"
 ```
 
+And there you go, our first successful build:
+https://travis-ci.org/MitocGroup/tutorial-ci-for-serverless/builds/283669984
+
 [Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step3#step-3-setup-unit-testing)
