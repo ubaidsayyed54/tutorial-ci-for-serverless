@@ -1,0 +1,18 @@
+language: node_js
+dist: trusty
+git:
+  depth: 1
+cache:
+  bundler: true
+  directories:
+    - node_modules
+    - "$(npm root -g)"
+    - "$(npm config get prefix)/bin"
+branches:
+  only:
+    - master
+node_js:
+  - 6
+  - 8
+script:
+  - echo "Hello World!"

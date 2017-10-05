@@ -28,9 +28,53 @@ as well as any other applications from
 [Curated List of Awesome Serverless](https://github.com/anaibol/awesome-serverless).
 
 ```ssh
-mkdir ./tutorial-ci-for-serverless
+# Download locally todomvc serverless application codebase
 git clone git@github.com:MitocGroup/deep-microservices-todomvc.git
-cp -R ./deep-microservices-todomvc/src ./deep-microservices-todomvc/bin ./tutorial-ci-for-serverless/
+
+# Download locally tutorial repository codebase
+git clone git@github.com:MitocGroup/tutorial-ci-for-serverless.git
+
+# Copy serverless application into a new branch, part of tutorial repository
+cd ./tutorial-ci-for-serverless
+git checkout -b tutorial-step1
+cp -R ../deep-microservices-todomvc/src ../deep-microservices-todomvc/bin .
+git commit -a -m "tutorial step 1"
+git push origin tutorial-step1
 ```
 
-[Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step2#step-2-setup-travis-ci)
+### Step 2: Setup Travis CI
+
+Travis CI takes care of running your tests and deploying your apps. Quoting
+official [Getting Started](https://docs.travis-ci.com/user/getting-started/)
+guide:
+
+> To start using Travis CI, make sure you have all of the following:
+> - GitHub login
+> - Project hosted as a repository on GitHub
+> - Working code in your project
+> - Working build or test script
+
+Here below is our initial `.travis.yml` file:
+
+```yaml
+language: node_js
+dist: trusty
+git:
+  depth: 1
+cache:
+  bundler: true
+  directories:
+    - node_modules
+    - "$(npm root -g)"
+    - "$(npm config get prefix)/bin"
+branches:
+  only:
+    - master
+node_js:
+  - 6
+  - 8
+script:
+  - echo "Hello World!"
+```
+
+[Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step3#step-3-setup-unit-testing)
