@@ -71,14 +71,14 @@ cache:
     - node_modules
     - "$(npm root -g)"
     - "$(npm config get prefix)/bin"
-branches:
-  only:
-    - master
 node_js:
   - 6
   - 8
 script: echo "Hello World!"
 ```
+
+And there you go, our first successful build:
+https://travis-ci.org/MitocGroup/tutorial-ci-for-serverless/builds/283669984
 
 ### Step 3: Setup Unit Testing
 
