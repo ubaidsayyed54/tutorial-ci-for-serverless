@@ -39,7 +39,7 @@ cd ./tutorial-ci-for-serverless
 git checkout -b tutorial-step1
 cp -R ../deep-microservices-todomvc/src ../deep-microservices-todomvc/bin .
 git commit -a -m "tutorial step 1"
-git push origin tutorial-step1
+git push --set-upstream origin tutorial-step1
 ```
 
 [Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step2#step-2-setup-travis-ci)
