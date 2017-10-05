@@ -17,20 +17,20 @@ CodeClimate, Snyk and other serverless-friendly services.
 
 ### Step 1: Identify Your Serverless Application
 
-For this tutorial, we went with good old [TodoMVC example](http://todomvc.com).
+For this tutorial, we went with good old
+[TodoMVC Single Page App](http://todomvc.com),
+adopted and transformed by our team into
+[TodoMVC Serverless App](https://github.com/MitocGroup/deep-microservices-todomvc).
 Similar approach can be applied to serverless applications described in
 [Serverless Stack](https://serverless-stack.com) or
 [Serverless Single Page Apps](https://pragprog.com/book/brapps/serverless-single-page-apps),
-as well as any other resource described in
-[Curated List of Awesome Serverless Applications](https://github.com/anaibol/awesome-serverless).
-
-Since we have already adopted TodoMVC using Serverless Architecture, this
-tutorial will reuse that open sourced code:
+as well as any other applications from
+[Curated List of Awesome Serverless](https://github.com/anaibol/awesome-serverless).
 
 ```ssh
-git clone git@github.com:MitocGroup/tutorial-ci-for-serverless.git
+mkdir ./tutorial-ci-for-serverless
 git clone git@github.com:MitocGroup/deep-microservices-todomvc.git
-cp -R deep-microservices-todomvc/src deep-microservices-todomvc/bin tutorial-ci-for-serverless/
+cp -R ./deep-microservices-todomvc/src ./deep-microservices-todomvc/bin ./tutorial-ci-for-serverless/
 ```
 
-[Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step2)
+[Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step2#step-2-setup-travis-ci)
