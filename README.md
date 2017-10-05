@@ -77,4 +77,8 @@ script:
   - echo "Hello World!"
 ```
 
-[Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step3#step-3-setup-unit-testing)
+### Step 3: Setup Unit Testing
+
+To be updated
+
+[Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step4#step-4-setup-code-climate)
