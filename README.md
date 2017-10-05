@@ -17,6 +17,8 @@ CodeClimate, Snyk and other serverless-friendly services.
 
 ### Step 1: Identify Your Serverless Application
 
+> Step 1 Codebase: https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step1
+
 For this tutorial, we went with good old
 [TodoMVC Single Page App](http://todomvc.com),
 adopted and transformed by our team into
