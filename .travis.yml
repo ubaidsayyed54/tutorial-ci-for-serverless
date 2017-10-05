@@ -14,5 +14,6 @@ branches:
 node_js:
   - 6
   - 8
-script:
-  - echo "Hello World!"
+before_install:
+  - npm install -g recink
+script: recink run unit

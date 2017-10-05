@@ -17,6 +17,8 @@ CodeClimate, Snyk and other serverless-friendly services.
 
 ### Step 1: Identify Your Serverless Application
 
+> Step 1 Codebase: https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step1
+
 For this tutorial, we went with good old
 [TodoMVC Single Page App](http://todomvc.com),
 adopted and transformed by our team into
@@ -43,6 +45,8 @@ git push --set-upstream origin tutorial-step1
 ```
 
 ### Step 2: Setup Travis CI
+
+> Step 2 Codebase: https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step2
 
 Travis CI takes care of running your tests and deploying your apps. Quoting
 official [Getting Started](https://docs.travis-ci.com/user/getting-started/)
@@ -73,12 +77,63 @@ branches:
 node_js:
   - 6
   - 8
-script:
-  - echo "Hello World!"
+script: echo "Hello World!"
 ```
 
 ### Step 3: Setup Unit Testing
 
-To be updated
+> Step 3 Codebase: https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step3
+
+Travis CI inspired us with its simplicity and streamlined process. On the other
+hand, we were surprised that triggering tests execution is not part of the
+service. And we couldn't find any other tool that does it well, so we wrote
+one: https://www.npmjs.com/package/recink
+
+Similar to `.travis.yml`, we manage test execution through `.recink.yml`:
+
+```yaml
+---
+$:
+  emit:
+    pattern:
+      - /^src.es6\/lib\/.+\.js$/i
+      - /^test?\/.+\.js$/i
+    ignore:
+      - /^(.*\/)?bin(\/?$)?/i
+      - /^(.*\/)?node-bin(\/?$)?/i
+      - /^(.*\/)?node_modules(\/?$)?/i
+      - /^(.*\/)?vendor(\/?$)?/i
+  npm:
+    scripts: []
+    dependencies:
+      chai: 'latest'
+  test:
+    mocha:
+      options:
+        ui: 'bdd'
+        reporter: 'spec'
+    pattern:
+      - /.+\.spec\.js$/i
+    ignore: ~
+
+### Add other modules here...
+task-create:
+  root: src/deep-todomvc/backend/src/task/create
+task-delete:
+  root: src/deep-todomvc/backend/src/task/delete
+task-retrieve:
+  root: src/deep-todomvc/backend/src/task/retrieve
+task-update:
+  root: src/deep-todomvc/backend/src/task/update
+```
+
+In order to let Travis CI know that we have some tests to execute, we go back
+to `.travis.yml` and change the script that will be executing from `echo "Hello World!"`:
+
+```yaml
+before_install:
+  - npm install -g recink
+script: recink run unit
+```
 
 [Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step4#step-4-setup-code-climate)

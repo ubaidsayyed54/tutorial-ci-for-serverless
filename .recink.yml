@@ -1,0 +1,33 @@
+---
+$:
+  emit:
+    pattern:
+      - /^src.es6\/lib\/.+\.js$/i
+      - /^test?\/.+\.js$/i
+    ignore:
+      - /^(.*\/)?bin(\/?$)?/i
+      - /^(.*\/)?node-bin(\/?$)?/i
+      - /^(.*\/)?node_modules(\/?$)?/i
+      - /^(.*\/)?vendor(\/?$)?/i
+  npm:
+    scripts: []
+    dependencies:
+      chai: 'latest'
+  test:
+    mocha:
+      options:
+        ui: 'bdd'
+        reporter: 'spec'
+    pattern:
+      - /.+\.spec\.js$/i
+    ignore: ~
+
+### Add other modules here...
+task-create:
+  root: src/deep-todomvc/backend/src/task/create
+task-delete:
+  root: src/deep-todomvc/backend/src/task/delete
+task-retrieve:
+  root: src/deep-todomvc/backend/src/task/retrieve
+task-update:
+  root: src/deep-todomvc/backend/src/task/update
