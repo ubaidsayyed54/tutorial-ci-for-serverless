@@ -137,4 +137,4 @@ before_install:
 script: recink run unit
 ```
 
-[Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step4#step-4-setup-code-climate)
+[Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step4#step-4-setup-cache)
