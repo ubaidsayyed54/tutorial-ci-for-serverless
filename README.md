@@ -17,6 +17,8 @@ CodeClimate, Snyk and other serverless-friendly services.
 
 ### Step 1: Identify Your Serverless Application
 
+> Step 1 Codebase: https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step1
+
 For this tutorial, we went with good old
 [TodoMVC Single Page App](http://todomvc.com),
 adopted and transformed by our team into
@@ -43,6 +45,8 @@ git push --set-upstream origin tutorial-step1
 ```
 
 ### Step 2: Setup Travis CI
+
+> Step 2 Codebase: https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step2
 
 Travis CI takes care of running your tests and deploying your apps. Quoting
 official [Getting Started](https://docs.travis-ci.com/user/getting-started/)
@@ -73,8 +77,7 @@ branches:
 node_js:
   - 6
   - 8
-script:
-  - echo "Hello World!"
+script: echo "Hello World!"
 ```
 
 [Click to Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step3#step-3-setup-unit-testing)
