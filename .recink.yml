@@ -24,7 +24,7 @@ $:
   cache:
     driver: 's3'
     options:
-      - 's3://travis-metadata/cache/MitocGroup/atm'
+      - 's3://travis-metadata/cache/MitocGroup/tutorial-ci-for-serverless'
       -
         region: 'process.env.AWS_DEFAULT_REGION'
         accessKeyId: 'process.env.AWS_ACCESS_KEY_ID'
