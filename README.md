@@ -271,4 +271,47 @@ say 2 percentage points drop):
             secretAccessKey: 'process.env.AWS_SECRET_ACCESS_KEY'
 ```
 
-[Click on Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step6#step-6-setup-snyk)
+### Step 6: Setup Snyk
+
+> Step 6 Branch: https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step6
+
+Snyk continuously finds and fixes vulnerabilities in your dependencies.
+This service allowed us to:
+
+1. Automatically test our applications dependencies
+2. Fix security risks through upgrades and patches
+3. Prevent us from adding vulnerable dependencies
+4. Stay alert about new vulnerabilities
+
+Similar to Code Climate, we need to update both `.travis.yml` and `.recink.yml`
+to enable this feature as part of our Continuous Integration process.
+
+Again, like in previous step, first retrieve the token from your account
+(follow [this link](https://snyk.io/docs/ci#api-token-configuration) for
+detailed instructions). Next, encrypt Snyk token:
+
+```ssh
+# Encrypt Snyk token
+travis encrypt -a -x "SNYK_API_TOKEN=[replace_with_your_token]"
+```
+
+As a result, you'll have an updated `.travis.yml` with the following new line
+in `env.global` configuration:
+
+```yaml
+env:
+  global:
+  [...]
+    - secure: "m0OhoLinQmakLxad7jgsy7gpBi/EovUwboL3YLeMbfxatzF/emr2hGFdWVaOUUBjHVL+8z8VbjUbYVsvxaq/8If+kukrgcmtWxzrmSAaN4uVme0cVN90fS5FuwwpDHrgKpkhjQHiSp3H3SpOW8gQENcv7u6YRvxTpLL2y6XKH8zEdhclQRIURyfjshrsjaN76jLpEl2Tqegj8MQDnhOrwnWXFqCV84GUDI7subUiWUMPg3Cg8FzRHLwMeu5yRdSk4AcYBiO0Wzz/W+uzOHrjgFuUb5hxrVMUCmI+9IvIrl4TDDxVb6rsXtiGNPvT6Ve+g79HAYJF3m5TZQmBYJoH0qauq+4DwV1qi0M/uGW+w0PFQr95yULM35JNIs7A3dT/NKNdZuASdryV4D8BX87AvKR6L2GS9TObdl5Q8H/5BWe8eab7vpaTs5Ce+GDbPL8m1LCAEDK8N6ZFc4dvVobnUUXczn+sG1fkCVK/4kA1jVKykxbIwXbwDjSlp4XeYPcxc8jVAC1gei45w/5VkqdfJpOg3g4NxgCctCJESfQSUZ45dRlgIdYahQTTYf1GGOyIZMYx6VlzmEG3tmCFyO39gf9lJzcXas+NgnFFQxCwBkgM1YS+M4x0aXkhcd0RYVDXEW8JS/whCiScXJdeJwGHEjZBiHk4gdzuDrwQyt6ZyO8="
+```
+
+Now, after updating `.recink.yml` with below several lines, we'll be able to
+both collect security reports from Snyk service:
+
+```yaml
+  preprocess:
+    [...]
+    '$.snyk.token': 'eval'
+  snyk:
+    token: 'process.env.SNYK_API_TOKEN'
+```
