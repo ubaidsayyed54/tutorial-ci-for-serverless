@@ -196,6 +196,79 @@ we decided to put it after unit testing configuration):
 
 > Step 5 Branch: https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step5
 
-To be updated
+Code Climate empowers organizations to take control of their code quality by
+incorporating fully configurable test coverage and maintainability data
+throughout the development workflow. This service allowed us to:
+
+1. Report code analysis over time and enforce industry accepted coding standards
+2. Report code coverage over time and enforce qualitative processes like
+  a) fail when code coverage percentage drops lower than X percent
+  b) fail when code coverage difference between two consecutive reports drops
+  more than Y percentage points
+
+In order to do that, we need to update both `.travis.yml` and `.recink.yml`
+like we did in previous step. Travis CI will store securely Code Climate token,
+while recink allow us to cache code coverage reports and enforce above
+described quality metrics.
+
+We imported GitHub repository into Code Climate (follow
+[this link](https://docs.codeclimate.com/v1.0/docs/importing-repositories)
+for detailed instructions) and retrieved the code coverage token (follow
+[this link](https://docs.codeclimate.com/v1.0/docs/finding-your-test-coverage-token)
+for detailed instructions). We ended up with this setup:
+https://codeclimate.com/github/MitocGroup/tutorial-ci-for-serverless
+
+Next, we need to encrypt Code Climate token:
+
+```ssh
+# Encrypt Code Climate token
+travis encrypt -a -x "CODECLIMATE_REPO_TOKEN=[replace_with_your_token]"
+```
+
+As a result, you'll have an updated `.travis.yml` with the following new line
+in `env.global` configuration:
+
+```yaml
+env:
+  global:
+  [...]
+    - secure: "SujTdUHeMbAu6x/8sysP+1N6EVpuvo512wmoHsB4atpWOsmcMeYclKgfJ5RvRehr9ZO8t9SUi7WIa5fzxDP4UY8gQAgWcMbAKO/gtCHOF96MbXxKufKBD9HLoJ6DldYr3IhO9POBU0BWA1ZJmlfgJ70lvAAF6oGTpkxhy9k8qmpHSw9aPEsA2NN33fUbP6NIcdUoG4WJJzWKFEup7lSNzHFu2hBjtFinzIoCQYH0RhxDaE3G8beSXYD/ET2WJn+reXlxFWBN0PpN4fIXKa3FmbBEZEViPuW4rXWOeT796iySSc7ZkkLXJMAN1h8eUFM+BO6eM2hrtbs/qGLxmc+siLFI1psuo7lf9BXJv3RyuLgNsWmB8nn03MWZhpSMfXy4UVkKDzjkj8VN5cdSdt+jvGvgQTHo+HRAGAoBRe2yyfXIvuE173+157kZ3enbpSMhapam0rBQcc2f9J+a/0XvOTiUMGFfn7UPx2Zoo5AK6B8EvlfDG5SkrabXlOzCMut7mONPhgxJCF8vNTStdtNDEbG8bbdpM+hwPKEgNR5rZ+nLL/TBx6+DftQL1w9SLRD7lVUcsYD+A66EIHKyL/2GnwN6Lavs5gZ1SBsXEozu/dQ63wCnWArnOQ9I5n1n/DLdbQyCAv5qbe4PUmU+eXq7TXbbYLC6fOLcRbPHzMEQfbI="
+```
+
+Now, after updating `.recink.yml` with below several lines, we'll be able to
+both push code coverage into Code Climate and enforce quality metrics (let's
+say 2 percentage points drop):
+
+```yaml
+  preprocess:
+    [...]
+    '$.coverage.compare.storage.options.1.region': 'eval'
+    '$.coverage.compare.storage.options.1.accessKeyId': 'eval'
+    '$.coverage.compare.storage.options.1.secretAccessKey': 'eval'
+    '$.codeclimate.token': 'eval'
+  codeclimate:
+    token: 'process.env.CODECLIMATE_REPO_TOKEN'
+  coverage:
+    pattern:
+      - /.+\.js$/i
+    ignore:
+      - /.+\.spec\.js$/i
+      - /^(.*\/)?node_modules(\/?$)?/i
+      - /^(.*\/)?vendor(\/?$)?/i
+    reporters:
+      text-summary: ~
+      lcovonly:
+        file: ./coverage.lcov
+    compare:
+      negative-delta: 2
+      storage:
+        driver: 's3'
+        options:
+          - 's3://[replace_with_your_s3_bucket]/[replace_with_your_s3_path]'
+          -
+            region: 'process.env.AWS_DEFAULT_REGION'
+            accessKeyId: 'process.env.AWS_ACCESS_KEY_ID'
+            secretAccessKey: 'process.env.AWS_SECRET_ACCESS_KEY'
+```
 
 [Click on Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step6#step-6-setup-snyk)

@@ -24,7 +24,7 @@ $:
   cache:
     driver: 's3'
     options:
-      - 's3://travis-metadata/cache/MitocGroup/atm'
+      - 's3://travis-metadata/cache/MitocGroup/tutorial-ci-for-serverless'
       -
         region: 'process.env.AWS_DEFAULT_REGION'
         accessKeyId: 'process.env.AWS_ACCESS_KEY_ID'
@@ -33,6 +33,33 @@ $:
     '$.cache.options.1.region': 'eval'
     '$.cache.options.1.accessKeyId': 'eval'
     '$.cache.options.1.secretAccessKey': 'eval'
+    '$.coverage.compare.storage.options.1.region': 'eval'
+    '$.coverage.compare.storage.options.1.accessKeyId': 'eval'
+    '$.coverage.compare.storage.options.1.secretAccessKey': 'eval'
+    '$.codeclimate.token': 'eval'
+  codeclimate:
+    token: 'process.env.CODECLIMATE_REPO_TOKEN'
+  coverage:
+    pattern:
+      - /.+\.js$/i
+    ignore:
+      - /.+\.spec\.js$/i
+      - /^(.*\/)?node_modules(\/?$)?/i
+      - /^(.*\/)?vendor(\/?$)?/i
+    reporters:
+      text-summary: ~
+      lcovonly:
+        file: ./coverage.lcov
+    compare:
+      negative-delta: 2
+      storage:
+        driver: 's3'
+        options:
+          - 's3://travis-metadata/coverage/MitocGroup/tutorial-ci-for-serverless'
+          -
+            region: 'process.env.AWS_DEFAULT_REGION'
+            accessKeyId: 'process.env.AWS_ACCESS_KEY_ID'
+            secretAccessKey: 'process.env.AWS_SECRET_ACCESS_KEY'
 
 ### Add other modules here...
 task-create:
