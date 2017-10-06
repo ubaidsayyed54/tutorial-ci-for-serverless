@@ -94,6 +94,10 @@ Similar to `.travis.yml`, we manage test execution through `.recink.yml`:
 ```yaml
 ---
 $:
+  npm:
+    scripts: []
+    dependencies:
+      chai: 'latest'
   emit:
     pattern:
       - /^src.es6\/lib\/.+\.js$/i
@@ -103,10 +107,6 @@ $:
       - /^(.*\/)?node-bin(\/?$)?/i
       - /^(.*\/)?node_modules(\/?$)?/i
       - /^(.*\/)?vendor(\/?$)?/i
-  npm:
-    scripts: []
-    dependencies:
-      chai: 'latest'
   test:
     mocha:
       options:
