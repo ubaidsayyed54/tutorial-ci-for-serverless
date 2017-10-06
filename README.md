@@ -117,14 +117,8 @@ $:
     ignore: ~
 
 ### Add other modules here...
-task-create:
-  root: src/deep-todomvc/backend/src/task/create
-task-delete:
-  root: src/deep-todomvc/backend/src/task/delete
-task-retrieve:
-  root: src/deep-todomvc/backend/src/task/retrieve
-task-update:
-  root: src/deep-todomvc/backend/src/task/update
+deep-todomvc:
+  root: src/deep-todomvc
 ```
 
 In order to let Travis CI know that we have some tests to execute, we go
