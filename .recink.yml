@@ -1,5 +1,9 @@
 ---
 $:
+  npm:
+    scripts: []
+    dependencies:
+      chai: 'latest'
   emit:
     pattern:
       - /^src.es6\/lib\/.+\.js$/i
@@ -9,10 +13,6 @@ $:
       - /^(.*\/)?node-bin(\/?$)?/i
       - /^(.*\/)?node_modules(\/?$)?/i
       - /^(.*\/)?vendor(\/?$)?/i
-  npm:
-    scripts: []
-    dependencies:
-      chai: 'latest'
   test:
     mocha:
       options:
@@ -21,6 +21,18 @@ $:
     pattern:
       - /.+\.spec\.js$/i
     ignore: ~
+  cache:
+    driver: 's3'
+    options:
+      - 's3://travis-metadata/cache/MitocGroup/atm'
+      -
+        region: 'process.env.AWS_DEFAULT_REGION'
+        accessKeyId: 'process.env.AWS_ACCESS_KEY_ID'
+        secretAccessKey: 'process.env.AWS_SECRET_ACCESS_KEY'
+  preprocess:
+    '$.cache.options.1.region': 'eval'
+    '$.cache.options.1.accessKeyId': 'eval'
+    '$.cache.options.1.secretAccessKey': 'eval'
 
 ### Add other modules here...
 task-create:

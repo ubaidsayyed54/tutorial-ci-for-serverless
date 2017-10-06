@@ -71,14 +71,14 @@ cache:
     - node_modules
     - "$(npm root -g)"
     - "$(npm config get prefix)/bin"
-branches:
-  only:
-    - master
 node_js:
   - 6
   - 8
 script: echo "Hello World!"
 ```
+
+And there you go, our first successful build:
+https://travis-ci.org/MitocGroup/tutorial-ci-for-serverless/builds/283669984
 
 ### Step 3: Setup Unit Testing
 
@@ -127,8 +127,9 @@ task-update:
   root: src/deep-todomvc/backend/src/task/update
 ```
 
-In order to let Travis CI know that we have some tests to execute, we go back
-to `.travis.yml` and change the script that will be executing from `echo "Hello World!"`:
+In order to let Travis CI know that we have some tests to execute, we go
+back to `.travis.yml` and change the script that will be executing from 
+`script: echo "Hello World!"` to this:
 
 ```yaml
 before_install:
@@ -136,8 +137,59 @@ before_install:
 script: recink run unit
 ```
 
-### Step 4: Setup Code Climate
+### Step 4: Setup Cache
 
 > Step 4 Branch: https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step4
 
-To be updated
+To speed up each Travis CI job, we have built an extra caching layer that
+stores npm cache in S3 and reuse it down the road. To enable this feature,
+both `.travis.yml` and `.recink.yml` must be updated.
+
+First, in order to work with S3, we need AWS credentials that can't just be
+stored in plain text. Travis CI offers native capability to encrypt sensitive
+information. Here below is how to do that:
+
+```ssh
+# Install Travis CI cli
+gem install travis
+
+# Encrypt AWS access key id
+travis encrypt -a -x "AWS_ACCESS_KEY_ID=[replace_with_your_key]"
+
+# Encrypt AWS secret access key
+travis encrypt -a -x "AWS_SECRET_ACCESS_KEY=[replace_with_your_key]"
+
+# Encrypt AWS region
+travis encrypt -a -x "AWS_DEFAULT_REGION=[replace_with_aws_region_where_your_s3_bucket_is]"
+```
+
+As a result, you'll have an updated `.travis.yml` with the following several lines:
+
+```yaml
+env:
+  global:
+    - secure: "G8DMndNEZ/E6lFgEqTBHvet1LcR/jr7y5i0Okg5sLZ5guK7lzT3jTI91H7RfGdkOnYAEyjUQ7LLPnGKLIgMtSCvmJbYr7nHQaYWVLkZXg+vmcqRKfLs1x6tclIkLsXlC1q6HYc+wLgJpV/km79PDZnEwL56+MOuntUtgks2hFtVQrMI2M8x9oCLuO+5QVk7KT1UfdnBYe+Iark+8xAuUkEpzLTC4qzrnpTz7ecCQizJkwKlByWn/Rns3nT/xdgASJRVkzg7QWyF5mFiDg5M4g7BuGVafu87eZFZ1YuUPpW18mTqKr45y6m4SXRNnZW5mXFzRpBA4GeTgkL2uYQJJtyRVnijhWM6S7lMZzftJlTeoHHHLGMl8/XyVF6a70feA8da2xvltNRM9HemO9tYRqudowcCl/RiNoutgqUy9vEeZ3HaPW80xybGyUAZi8UfdvA0f/4WevrHKFCJAxYTE5LAzyK41RwTSLRj7x0rW4pIVsn/R329psp1hKkbTiTar+p/sJfKHTman9Qw+BDpHsqpD9ZO/BBpdogM75M0kxiFc6SPG6gAAeLVnolTlYbxihqhKtQOgUCcWCXs62kJNxbH/xow78U3nCGSW5Gjky4BDmt3ekRGZa1w40I66SVqkWfKbysYdp80pU++3ZoeI/w46Jbqowt7xTXLE2UL5/TQ="
+    - secure: "sEnXrP26tm/2Wy3EHy6/cMN5zinHiFyuzzKwEzB8rrYRwYpSdpLwWJaqgr9e+NbXJc2CVCSgBfmZkA/ZotTuMYuH77AbjYZKt4XtCC/AmfX9Uqmnw8vu2GRUN0bcqtohML64XjnRu11LcC+uNToja9yfldHY2QbVv6Dvr2IbSg86p1AkRFFcKjfQBoQZBEqyDv32y+Maa3c5qrQMvJBHzc0i9SEis5/crsghLlDK7JTzMDSCpqu6GGxjOyx5BjpgPAQPqP4BcyPKu+DqcJAGA+ThHmCdxM/BIqUbrqoWa72utNqhtXQm1OQYLYVJzgzgwS0GO3I3UIO+kY52E32buwxNBlJJIrQJgW6FcD4ztK/feDaGGIw6sb12HyCBt81hxhsWAuAHZwxXfk9b7EFp0p2edPqzCcJsZ9d/M5BAuHNWV8kNQAifA0hHq9NjP7Ymu3Uq4F6LADk8IU5sUF1cNkt4kWxnqbgZCi7eR7wSxu2ZhrQO7qUOmI+PNAOLUdeONUU3vVcCJIbE6GIvpCiy+xD3HHFc70noItAdFDr0gch6Axv3cDI2Bge1iTXYHqnS4tAbqBcsd1Yqs1WU+Y4PeL/PJt1oRK23u6deJrIVwKxMjUs7ynByVywX8GkH7YRSJmc6Kw8/8ZUq5Fa7Gxte70b6YbyiBHE9NEQkSvr+X54="
+    - secure: "MAE2tai6sfIaBAs6rRzjw9m+/1CpknpyXDiNkmH5bvcGsLrQsVDbuxF2S4swDCQcYi8mCFMKzjyPk3i/O03clgKkpqDLrtxmo6DhPZzHB8UKDp27VnemCVMlcYphwKwE57JngzhFZFu9JdttgnpoUfjwW+/pml80g/8ULlUAjyocCOOTOhYaXB44fZOhwT7cB3oVHP8inGMpWvGowyH6skpZUVmkJ5nEoFhKxM/z5kA8CdPBj/7m0JEgOi8knJg1cjQE7TEZRZ94SFMGz/4qZYiTFohqlm/6LjVFFFVupe+OsuluNIKu/r7aFm1wQrIZpOFBEG64tGkYXn0kmMcZ3glUAeqGDDrQ2vEMTfo4gKgOjyKcUloIJ3kuz/EjKiYfCFRYlxKRdIRxc389YaJ+SMf1y7ePBu0+PtL/dBbjTmo5sTylfLfvKesUjXtNJsx3YKI9q6bwHR2p6qGZWIo7WQtr4mH079Nn9vA0I+l2eS2hMhqoEXdVrrFsg8SmdqATsT/SkOAfeBqZrMccG0B1CHFuoSetaVK7OUUcLRBnSULiZSortoHLvLW3KGaGGelRebUMWJvLIl1xnKaT496+IwOGsPtUraqa1fBN4QfBnNGMvsTY1YfMCwALmfXZuGP6imxhcAFx9lKU1yBJPN0HGwlbbZ8mqLJU0YfxDQhvTa4="
+```
+
+Second, in order to allow npm cache to be stored in S3, add the following
+several lines to `.recink.yml` (the order is not relevant, but for consistency
+we decided to put it after unit testing configuration):
+
+```yaml
+  cache:
+    driver: 's3'
+    options:
+      - 's3://[replace_with_your_s3_bucket]/[replace_with_your_s3_path]'
+      -
+        region: 'process.env.AWS_DEFAULT_REGION'
+        accessKeyId: 'process.env.AWS_ACCESS_KEY_ID'
+        secretAccessKey: 'process.env.AWS_SECRET_ACCESS_KEY'
+  preprocess:
+    '$.cache.options.1.region': 'eval'
+    '$.cache.options.1.accessKeyId': 'eval'
+    '$.cache.options.1.secretAccessKey': 'eval'
+```
+
+[Click on Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step5#step-5-setup-code-climate)
