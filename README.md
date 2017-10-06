@@ -336,4 +336,4 @@ be updated in this tutorial later:
 
 Any feedback is welcome! Feel free to reach us at www.mitocgroup.com, report bugs
 [by filing issues here](https://github.com/MitocGroup/tutorial-ci-for-serverless/issues)
-or contribute directly [as described here](CONTRIBUTING.md).
+or contribute directly [as described here](CONTRIBUTING.md). Thank you!
