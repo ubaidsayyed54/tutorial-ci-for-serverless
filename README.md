@@ -192,4 +192,10 @@ we decided to put it after unit testing configuration):
     '$.cache.options.1.secretAccessKey': 'eval'
 ```
 
-[Click on Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step5#step-5-setup-code-climate)
+### Step 5: Setup Code Climate
+
+> Step 5 Branch: https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step5
+
+To be updated
+
+[Click on Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-step6#step-6-setup-snyk)
