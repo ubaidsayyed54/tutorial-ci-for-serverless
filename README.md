@@ -202,9 +202,9 @@ throughout the development workflow. This service allowed us to:
 
 1. Report code analysis over time and enforce industry accepted coding standards
 2. Report code coverage over time and enforce qualitative processes like
-  a) fail when code coverage percentage drops lower than X percent
-  b) fail when code coverage difference between two consecutive reports drops
-  more than Y percentage points
+    - fail when code coverage percentage drops lower than X percent
+    - fail when code coverage difference between two consecutive reports drops
+      more than Y percentage points
 
 In order to do that, we need to update both `.travis.yml` and `.recink.yml`
 like we did in previous step. Travis CI will store securely Code Climate token,
