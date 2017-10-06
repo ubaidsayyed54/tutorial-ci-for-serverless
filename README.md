@@ -306,7 +306,7 @@ env:
 ```
 
 Now, after updating `.recink.yml` with below several lines, we'll be able to
-both collect security reports from Snyk service:
+collect security reports from Snyk service:
 
 ```yaml
   preprocess:
