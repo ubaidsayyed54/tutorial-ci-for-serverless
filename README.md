@@ -315,3 +315,5 @@ collect security reports from Snyk service:
   snyk:
     token: 'process.env.SNYK_API_TOKEN'
 ```
+
+[Click on Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-final#final-step-summary)
