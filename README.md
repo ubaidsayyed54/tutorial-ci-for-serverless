@@ -334,8 +334,6 @@ collect security reports from Snyk service:
 
 ### Final Step: Summary
 
-> Final Step Branch: https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-final
-
 In this tutorial, we walked you through how to:
 
 1. Setup Continuous Integration (using GitHub and Travis CI)
