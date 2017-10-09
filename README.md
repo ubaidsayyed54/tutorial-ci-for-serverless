@@ -100,8 +100,7 @@ $:
       chai: 'latest'
   emit:
     pattern:
-      - /^src.es6\/lib\/.+\.js$/i
-      - /^test?\/.+\.js$/i
+      - /^tests\/.+\.js$/i
     ignore:
       - /^(.*\/)?bin(\/?$)?/i
       - /^(.*\/)?node-bin(\/?$)?/i
@@ -333,4 +332,4 @@ collect security reports from Snyk service:
     token: 'process.env.SNYK_API_TOKEN'
 ```
 
-[Click on Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/tutorial-final#final-step-summary)
+[Click on Continue](https://github.com/MitocGroup/tutorial-ci-for-serverless/tree/master#final-step-summary)
