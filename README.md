@@ -229,6 +229,17 @@ env:
     - secure: "SujTdUHeMbAu6x/8sysP+1N6EVpuvo512wmoHsB4atpWOsmcMeYclKgfJ5RvRehr9ZO8t9SUi7WIa5fzxDP4UY8gQAgWcMbAKO/gtCHOF96MbXxKufKBD9HLoJ6DldYr3IhO9POBU0BWA1ZJmlfgJ70lvAAF6oGTpkxhy9k8qmpHSw9aPEsA2NN33fUbP6NIcdUoG4WJJzWKFEup7lSNzHFu2hBjtFinzIoCQYH0RhxDaE3G8beSXYD/ET2WJn+reXlxFWBN0PpN4fIXKa3FmbBEZEViPuW4rXWOeT796iySSc7ZkkLXJMAN1h8eUFM+BO6eM2hrtbs/qGLxmc+siLFI1psuo7lf9BXJv3RyuLgNsWmB8nn03MWZhpSMfXy4UVkKDzjkj8VN5cdSdt+jvGvgQTHo+HRAGAoBRe2yyfXIvuE173+157kZ3enbpSMhapam0rBQcc2f9J+a/0XvOTiUMGFfn7UPx2Zoo5AK6B8EvlfDG5SkrabXlOzCMut7mONPhgxJCF8vNTStdtNDEbG8bbdpM+hwPKEgNR5rZ+nLL/TBx6+DftQL1w9SLRD7lVUcsYD+A66EIHKyL/2GnwN6Lavs5gZ1SBsXEozu/dQ63wCnWArnOQ9I5n1n/DLdbQyCAv5qbe4PUmU+eXq7TXbbYLC6fOLcRbPHzMEQfbI="
 ```
 
+Because Code Climate is built as a separate npm library, we need to enable this
+feature in `.travis.yml` by changing `before_install` and `script` lines, as
+shown below:
+
+```yaml
+before_install:
+  - npm install -g recink
+  - npm install -g recink-codeclimate
+script: recink run unit -c recink-codeclimate
+```
+
 Now, after updating `.recink.yml` with below several lines, we'll be able to
 both push code coverage into Code Climate and enforce quality metrics (let's
 say 2 percentage points drop):
@@ -297,6 +308,18 @@ env:
   global:
   [...]
     - secure: "m0OhoLinQmakLxad7jgsy7gpBi/EovUwboL3YLeMbfxatzF/emr2hGFdWVaOUUBjHVL+8z8VbjUbYVsvxaq/8If+kukrgcmtWxzrmSAaN4uVme0cVN90fS5FuwwpDHrgKpkhjQHiSp3H3SpOW8gQENcv7u6YRvxTpLL2y6XKH8zEdhclQRIURyfjshrsjaN76jLpEl2Tqegj8MQDnhOrwnWXFqCV84GUDI7subUiWUMPg3Cg8FzRHLwMeu5yRdSk4AcYBiO0Wzz/W+uzOHrjgFuUb5hxrVMUCmI+9IvIrl4TDDxVb6rsXtiGNPvT6Ve+g79HAYJF3m5TZQmBYJoH0qauq+4DwV1qi0M/uGW+w0PFQr95yULM35JNIs7A3dT/NKNdZuASdryV4D8BX87AvKR6L2GS9TObdl5Q8H/5BWe8eab7vpaTs5Ce+GDbPL8m1LCAEDK8N6ZFc4dvVobnUUXczn+sG1fkCVK/4kA1jVKykxbIwXbwDjSlp4XeYPcxc8jVAC1gei45w/5VkqdfJpOg3g4NxgCctCJESfQSUZ45dRlgIdYahQTTYf1GGOyIZMYx6VlzmEG3tmCFyO39gf9lJzcXas+NgnFFQxCwBkgM1YS+M4x0aXkhcd0RYVDXEW8JS/whCiScXJdeJwGHEjZBiHk4gdzuDrwQyt6ZyO8="
+```
+
+Because Snyk is built as a separate npm library, we need to enable this
+feature in `.travis.yml` by changing `before_install` and `script` lines, as
+shown below:
+
+```yaml
+before_install:
+  - npm install -g recink
+  - npm install -g recink-codeclimate
+  - npm install -g recink-snyk
+script: recink run unit -c recink-codeclimate -c recink-snyk
 ```
 
 Now, after updating `.recink.yml` with below several lines, we'll be able to

@@ -7,7 +7,7 @@ $:
   emit:
     pattern:
       - /^src.es6\/lib\/.+\.js$/i
-      - /^test?\/.+\.js$/i
+      - /^test\/.+\.js$/i
     ignore:
       - /^(.*\/)?bin(\/?$)?/i
       - /^(.*\/)?node-bin(\/?$)?/i
