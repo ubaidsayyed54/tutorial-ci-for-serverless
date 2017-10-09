@@ -13,7 +13,8 @@ node_js:
   - 8
 before_install:
   - npm install -g recink
-script: recink run unit
+  - npm install -g recink-codeclimate
+script: recink run unit -c recink-codeclimate
 env:
   global:
     # AWS_ACCESS_KEY_ID=[secure]
