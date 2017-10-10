@@ -4,7 +4,7 @@
 var deepKernel = DeepFramework.Kernel;
 
 System.config({
-  defaultJSExtensions: true,
+  defaultJSExtensions: true
 });
 
 DeepFramework.Kernel.bootstrap(function(deepKernel) {
