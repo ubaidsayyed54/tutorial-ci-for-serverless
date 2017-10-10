@@ -6,12 +6,14 @@ $:
       chai: 'latest'
   emit:
     pattern:
-      - /^tests\/.+\.js$/i
+      - /.+\.js$/i
     ignore:
       - /^(.*\/)?bin(\/?$)?/i
       - /^(.*\/)?node-bin(\/?$)?/i
       - /^(.*\/)?node_modules(\/?$)?/i
       - /^(.*\/)?vendor(\/?$)?/i
+      - /^(.*\/)?frontend(\/?$)?/i
+      - /^(.*\/)?backend(\/?$)?/i
   test:
     mocha:
       options:
