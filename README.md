@@ -100,7 +100,7 @@ $:
       chai: 'latest'
   emit:
     pattern:
-      - /^tests\/.+\.js$/i
+      - /.+\.js$/i
     ignore:
       - /^(.*\/)?bin(\/?$)?/i
       - /^(.*\/)?node-bin(\/?$)?/i
