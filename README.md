@@ -106,8 +106,6 @@ $:
       - /^(.*\/)?node-bin(\/?$)?/i
       - /^(.*\/)?node_modules(\/?$)?/i
       - /^(.*\/)?vendor(\/?$)?/i
-      - /^(.*\/)?frontend(\/?$)?/i
-      - /^(.*\/)?backend(\/?$)?/i
   test:
     mocha:
       options:
